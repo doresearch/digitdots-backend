@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    html, body {
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+<iframe id="iframe" src="https://www.youbaobao.xyz" style="width: 100%; height: 100%"></iframe>
+<script>
+  const iframe = document.getElementById('iframe')
+  console.log({iframe}, iframe.contentWindow, iframe.contentDocument)
+  const app = iframe.contentDocument.getElementById('app')
+  console.log(app)
+</script>
+</body>
+</html>
