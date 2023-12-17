@@ -6,6 +6,9 @@
 
 <script lang="ts" setup name="Home">
 import HelloWorld from '@/components/HelloWorld.vue'
+import { ref } from 'vue'
+
+const name = ref('test');
 </script>
 
 <style lang="scss" scoped></style>
