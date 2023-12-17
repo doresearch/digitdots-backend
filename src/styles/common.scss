@@ -1,0 +1,248 @@
+/*
+ *  Common style.
+ *  # Carry Your World #
+ */
+
+$fontFamily: "Microsoft YaHei", Arial, "微软雅黑";
+$rootFontSize: 12px;
+
+// Restyling.
+// ======================
+html {
+  font-size: $rootFontSize;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+
+body {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  font-family: $fontFamily;
+}
+
+a {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
+  border: none;
+  outline: none;
+}
+
+button {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  font-family: $fontFamily;
+  outline: none;
+}
+
+input {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  font-family: $fontFamily;
+  outline: none;
+}
+
+textarea {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  outline: none;
+}
+
+img {
+  -webkit-touch-callout: none;
+  border: none;
+}
+
+// Position.
+// ======================
+.p-absolute {
+  position: absolute;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.p-fixed {
+  position: fixed;
+}
+
+.p-zero {
+  left: 0;
+  top: 0;
+}
+
+.p-center {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.f-left {
+  float: left;
+}
+
+.f-right {
+  float: right;
+}
+
+.f-clear {
+  &:after {
+    clear: both;
+    content: "";
+    display: block;
+    visibility: hidden;
+  }
+}
+
+.m-auto {
+  margin: 0 auto;
+}
+
+.v-top {
+  vertical-align: top;
+}
+
+.v-middle {
+  vertical-align: middle;
+}
+
+.v-bottom {
+  vertical-align: bottom;
+}
+
+// Box-sizing.
+// ======================
+.w-100 {
+  width: 100%;
+}
+
+.h-100 {
+  height: 100%;
+}
+
+.dp-block {
+  display: block;
+}
+
+.dp-i-block {
+  display: inline-block;
+}
+
+.dp-none {
+  display: none;
+}
+
+.dp-table {
+  display: table;
+}
+
+.dp-table-cell {
+  display: table-cell;
+}
+
+.dp-flex {
+  display: flex;
+}
+
+.flex-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-h-center {
+  justify-content: center;
+}
+
+.flex-v-center {
+  align-items: center;
+}
+
+.border-box {
+  box-sizing: border-box;
+}
+
+// Text.
+// ======================
+.t-left {
+  text-align: left;
+}
+
+.t-center {
+  text-align: center;
+}
+
+.t-right {
+  text-align: right;
+}
+
+.t-over-hidden {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.t-nowrap {
+  white-space: nowrap;
+}
+
+.t-no-wrap {
+  white-space: nowrap;
+}
+
+.f-family {
+  font-family: $fontFamily;
+}
+
+// Visual.
+// ======================
+.bg-white {
+  background-color: #ffffff;
+}
+
+.bg-center {
+  background-position: center center;
+}
+
+.bg-no-repeat {
+  background-repeat: no-repeat;
+}
+
+.bg-cover {
+  background-size: cover;
+}
+
+.bg-contain {
+  background-size: contain;
+}
+
+.bg-fixed {
+  background-attachment: fixed;
+}
+
+.bg-normal {
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.over-hidden {
+  overflow: hidden;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.no-select {
+  user-select: none;
+}
+
+.list-none {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.b-circle {
+  border-radius: 50%;
+}
+
+.v-hidden {
+  visibility: hidden;
+}
