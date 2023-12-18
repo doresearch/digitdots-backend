@@ -2,6 +2,7 @@ module.exports = ctx => ({
   parser: ctx.parser ? 'sugarss' : false,
   map: ctx.env === 'development' ? ctx.map : false,
   plugins: {
+    tailwindcss: {},
     autoprefixer: {},
     // 'postcss-pxtorem': {
     //   rootValue: 192, // 设计稿宽度的1/10
