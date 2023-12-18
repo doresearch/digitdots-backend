@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <div class="flex" v-if="AllStep[Step] === 'RoleChoose'">
-      <div onclick="">Student</div>
-      <div>Teacher</div>
+  <div class="mx-auto w-200 flex flex-col box-border">
+    <div class="flex flex-1" v-if="AllStep[Step] === 'RoleChoose'">
+      <!-- <div class="cursor-pointer h-50 w-50 text-align border border-inherit" onclick="">Student</div>
+      <div class="cursor-pointer h-50 w-50 text-align border border-inherit">Teacher</div> -->
+      <el-radio-group v-model="info.role">
+        <el-radio class="" label="1" size="large" border>Option A</el-radio>
+        <el-radio label="2" size="large" border>Option B</el-radio>
+      </el-radio-group>
     </div>
-    <div class="flex">
-      <el-form ref="infoFormRef" label-width="100px" :model="info" style="max-width: 460px" :rules="rules">
+    <div class="flex flex-1">
+      <el-form ref="infoFormRef" label-width="200px" :model="info" :rules="rules">
         <div v-if="AllStep[Step] === 'RoleInfo-Account'">
           <el-form-item label="Email Address" required>
             <el-input v-model="info.email" />
@@ -27,8 +31,8 @@
       </el-form>
     </div>
 
-    <div>
-      <el-button @click="NextStep(infoFormRef)">next</el-button>
+    <div class="flex justify-end">
+      <el-button type="primary" @click="NextStep(infoFormRef)">next</el-button>
     </div>
   </div>
 </template>
@@ -37,10 +41,11 @@
 import { ref } from 'vue'
 import type { FormInstance } from 'element-plus'
 
-const Step = ref(1)
+const Step = ref(0)
 const AllStep = ['RoleChoose', 'RoleInfo-Account', 'RoleInfo-Extend']
 
 const info = ref({
+  role: '',
   email: '',
   pass: '',
   checkPass: '',

@@ -12,6 +12,7 @@ export default {
   theme: {
     extend: {
       width: repeatMap(500, 1),
+      height: repeatMap(500, 1),
       margin: repeatMap(500, 1),
       padding: repeatMap(500, 1),
     },
