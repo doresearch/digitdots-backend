@@ -5,13 +5,7 @@
       <div>Teacher</div>
     </div>
     <div class="flex">
-      <el-form
-        ref="infoFormRef"
-        label-width="100px"
-        :model="info"
-        style="max-width: 460px"
-        :rules="rules"
-      >
+      <el-form ref="infoFormRef" label-width="100px" :model="info" style="max-width: 460px" :rules="rules">
         <div v-if="AllStep[Step] === 'RoleInfo-Account'">
           <el-form-item label="Email Address" required>
             <el-input v-model="info.email" />
@@ -27,7 +21,7 @@
         </div>
         <div v-if="AllStep[Step] === 'RoleInfo-Extend'">
           <el-form-item label="You'll receive a 6-digit code, press it here" required>
-            <el-input v-model="info.inviteCode"/>
+            <el-input v-model="info.inviteCode" />
           </el-form-item>
         </div>
       </el-form>
@@ -46,7 +40,6 @@ import type { FormInstance } from 'element-plus'
 const Step = ref(1)
 const AllStep = ['RoleChoose', 'RoleInfo-Account', 'RoleInfo-Extend']
 
-
 const info = ref({
   email: '',
   pass: '',
@@ -55,9 +48,7 @@ const info = ref({
 })
 const infoFormRef = ref<FormInstance>()
 
-const checkEmail = (rule: any, value: any, callback: any) => {
-
-}
+const checkEmail = (rule: any, value: any, callback: any) => {}
 
 const validatePass = (rule: any, value: any, callback: any) => {
   if (value === '') {
@@ -91,7 +82,7 @@ const rules = {
       type: 'email',
       message: 'Please input correct email address',
       trigger: ['blur', 'change'],
-    }
+    },
   ],
   pass: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
@@ -99,12 +90,11 @@ const rules = {
 
 const NextStep = (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  formEl.validate((valid) => {
+  formEl.validate(valid => {
     if (valid) {
       Step.value++
       localStorage.setItem('info', JSON.stringify(info.value))
     }
   })
 }
-
 </script>

@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script script="ts" setup>
+<script lang="ts" setup>
 const UserInfo = {
   fName: 'wangbo',
   lName: 'zhang',

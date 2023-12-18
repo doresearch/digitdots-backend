@@ -22,7 +22,6 @@ const routes = [
   // 下单页面
   // 订单详情
   // 支付页面
-
 ]
 
 const router = createRouter({
