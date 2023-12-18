@@ -1,31 +1,56 @@
 <template>
   <div class="mx-auto w-200 flex flex-col box-border">
-    <div class="flex flex-1" v-if="AllStep[Step] === 'RoleChoose'">
-      <!-- <div class="cursor-pointer h-50 w-50 text-align border border-inherit" onclick="">Student</div>
-      <div class="cursor-pointer h-50 w-50 text-align border border-inherit">Teacher</div> -->
+    <!-- <div class="flex flex-1" v-if="AllStep[Step] === 'RoleChoose'">
       <el-radio-group v-model="info.role">
-        <el-radio class="" label="1" size="large" border>Option A</el-radio>
+        <el-radio label="1" size="large" border>Option A</el-radio>
         <el-radio label="2" size="large" border>Option B</el-radio>
       </el-radio-group>
-    </div>
+    </div> -->
     <div class="flex flex-1">
-      <el-form ref="infoFormRef" label-width="200px" :model="info" :rules="rules">
+      <el-form ref="infoFormRef" label-width="200px" :label-position="labelPosition" :model="info" :rules="rules">
         <div v-if="AllStep[Step] === 'RoleInfo-Account'">
+          <el-form-item label="role" required>
+            <el-radio-group v-model="info.role">
+              <el-radio label="1">Option A</el-radio>
+              <el-radio label="2">Option B</el-radio>
+            </el-radio-group>
+          </el-form-item>
           <el-form-item label="Email Address" required>
-            <el-input v-model="info.email" />
+            <el-input v-model="info.email" name="email" />
           </el-form-item>
           <!-- 过于简单提示 -->
           <el-form-item label="PassWord" required>
-            <el-input v-model="info.pass" />
+            <el-input v-model="info.pass" name="password" />
           </el-form-item>
           <!-- 不一致提示 -->
           <el-form-item label="Confirm Password" required>
-            <el-input v-model="info.checkPass" />
+            <el-input v-model="info.checkPass" name="password" />
+          </el-form-item>
+          <el-form-item label="You'll receive a 6-digit code, press it here" required>
+            <el-input v-model="info.inviteCode" />
           </el-form-item>
         </div>
         <div v-if="AllStep[Step] === 'RoleInfo-Extend'">
-          <el-form-item label="You'll receive a 6-digit code, press it here" required>
-            <el-input v-model="info.inviteCode" />
+          <div>Who you are?</div>
+          <div class="flex justify-between">
+            <el-form-item label="First Name" required>
+              <el-input v-model="info.fname" />
+            </el-form-item>
+            <el-form-item label="Last Name" required>
+              <el-input v-model="info.lname" />
+            </el-form-item>
+          </div>
+          <el-form-item label="where are you working for" required>
+            <el-input v-model="info.lname" />
+          </el-form-item>
+          <el-form-item label="What's you major" required>
+            <el-input v-model="info.lname" />
+          </el-form-item>
+          <el-form-item label="What's your title in the school" required>
+            <el-input v-model="info.lname" />
+          </el-form-item>
+          <el-form-item label="Use some tags to tell other what you are good at (maxium 3 tags)" required>
+            <el-select v-model="info.tags" multiple :multiple-limit="3" placeholder="Please select" />
           </el-form-item>
         </div>
       </el-form>
@@ -38,11 +63,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { FormInstance } from 'element-plus'
 
 const Step = ref(0)
-const AllStep = ['RoleChoose', 'RoleInfo-Account', 'RoleInfo-Extend']
+const AllStep = ['RoleInfo-Account', 'RoleInfo-Extend']
 
 const info = ref({
   role: '',
@@ -50,6 +75,9 @@ const info = ref({
   pass: '',
   checkPass: '',
   inviteCode: '',
+  fname: '',
+  lname: '',
+  tags: [],
 })
 const infoFormRef = ref<FormInstance>()
 
@@ -66,6 +94,7 @@ const validatePass = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
+
 const validatePass2 = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('Please input the password again'))
@@ -92,6 +121,8 @@ const rules = {
   pass: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
 }
+
+const labelPosition = computed(() => (Step.value === 0 ? 'left' : 'top'))
 
 const NextStep = (formEl: FormInstance | undefined) => {
   if (!formEl) return
