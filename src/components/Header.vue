@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between">
+  <div class="flex justify-between p-2">
     <div class="bold text-lg">Digitdots</div>
     <div>
       <div class="flex" v-if="isLogin">

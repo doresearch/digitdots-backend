@@ -1,7 +1,7 @@
 const repeatMap = (times, step) => {
   const result = {}
   for (let i = 0; i < times; i += step) {
-    result[i] = i / 4
+    result[i] = i / 4 + 'rem'
   }
   return result
 }
