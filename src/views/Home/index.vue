@@ -1,11 +1,11 @@
 <template>
   <div>
-    <HelloWorld :msg="'test'" />
+    <!-- <HelloWorld :msg="'test'" /> -->
   </div>
 </template>
 
 <script lang="ts" setup name="Home">
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
 import { ref } from 'vue'
 
 const name = ref('test')
