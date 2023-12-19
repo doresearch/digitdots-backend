@@ -6,8 +6,15 @@
         <el-radio label="2" size="large" border>Option B</el-radio>
       </el-radio-group>
     </div> -->
-    <div class="flex flex-1">
-      <el-form ref="infoFormRef" label-width="200px" :label-position="labelPosition" :model="info" :rules="rules">
+    <div class="flex flex-1 w-full">
+      <el-form
+        ref="infoFormRef"
+        class="w-full mt-10"
+        label-width="200px"
+        :label-position="labelPosition"
+        :model="info"
+        :rules="rules"
+      >
         <div v-if="AllStep[Step] === 'RoleInfo-Account'">
           <el-form-item label="role" prop="role" required>
             <el-radio-group v-model="info.role">
@@ -31,12 +38,12 @@
           </el-form-item>
         </div>
         <div v-if="AllStep[Step] === 'RoleInfo-Extend'">
-          <div>Who you are?</div>
+          <div class="text-3xl mb-10 bold text-center">Who you are?</div>
           <div class="flex justify-between">
-            <el-form-item label="First Name" prop="fname" required>
+            <el-form-item class="flex-1" label="First Name" prop="fname" required>
               <el-input v-model="info.fname" />
             </el-form-item>
-            <el-form-item class="ml-2" label="Last Name" prop="lname" required>
+            <el-form-item class="ml-2 flex-1" label="Last Name" prop="lname" required>
               <el-input v-model="info.lname" />
             </el-form-item>
           </div>
