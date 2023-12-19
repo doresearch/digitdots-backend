@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '@/views/Home/index.vue'
 import Register from '@/views/Register/index.vue'
+import Login from '@/views/Login.vue'
 
 const routes = [
   {
@@ -15,6 +16,11 @@ const routes = [
     path: '/register',
     name: 'register',
     component: Register,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
   },
   // 老师登陆完成后选择时间
   // 老师介绍页面（后置）
