@@ -152,6 +152,8 @@ const NextStep = (formEl: FormInstance | undefined) => {
           if (res.data?.code === 0) {
             ElMessage.success('register success')
             router.push('/home')
+          } else {
+            ElMessage.error(res.data?.message)
           }
         })
       } else {

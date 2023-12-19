@@ -5,5 +5,5 @@ export const registerUser = (params: any) => {
 }
 
 export const loginUser = (params: any) => {
-  return request.post('/user/login', params)
+  return request.post('/auth/login', params)
 }

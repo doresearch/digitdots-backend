@@ -27,11 +27,11 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     config.baseURL = import.meta.env.VITE_API_URL
-    // let token = ''
-    // if (config.url !== '/login') {
-    //   token = localStorage.getItem('token')
-    //   config.headers.Authorization = token
-    // }
+    let token = ''
+    if (config.url !== '/auth/login') {
+      token = 'Bearer ' + localStorage.getItem('token')
+      config.headers.Authorization = token
+    }
     return config
   },
   error => {
@@ -42,21 +42,9 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-    if (response.data.code !== 200) {
-      Notification.closeAll()
-      Notification({
-        title: 'Request error',
-        message: response.data.message,
-        type: 'error',
-        duration: 5 * 1000,
-      })
-
-      if (response.data.code === 401) {
-        callLogin()
-      }
-      return response
+    if (response.data.code === 401) {
+      callLogin()
     }
-
     return response
   },
   error => {

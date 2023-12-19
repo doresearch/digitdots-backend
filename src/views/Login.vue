@@ -65,6 +65,7 @@ const onClickLogin = (formEl: FormInstance | undefined) => {
     loginUser(params).then(res => {
       if (res.data?.code === 0) {
         ElMessage.success('login success')
+        localStorage.setItem('token', res.data.result.token || '')
         router.push('/home')
       } else {
         ElMessage.error(res.data?.message)
