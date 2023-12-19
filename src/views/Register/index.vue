@@ -67,6 +67,7 @@ import { ref, computed } from 'vue'
 import { FormInstance, ElMessage } from 'element-plus'
 import { registerUser } from '../../api'
 import md5 from 'md5'
+import { useRouter } from 'vue-router'
 
 const Step = ref(0)
 const AllStep = ['RoleInfo-Account', 'RoleInfo-Extend']
@@ -131,6 +132,8 @@ const rules = {
 
 const labelPosition = computed(() => (Step.value === 0 ? 'left' : 'top'))
 
+const router = useRouter()
+
 const NextStep = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate(valid => {
@@ -141,6 +144,7 @@ const NextStep = (formEl: FormInstance | undefined) => {
         registerUser(params).then(res => {
           if (res.data?.code === 0) {
             ElMessage.success('register success')
+            router.push('/home')
           }
         })
       } else {
