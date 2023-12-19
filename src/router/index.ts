@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '@/views/Home/index.vue'
 import Register from '@/views/Register/index.vue'
 import Login from '@/views/Login.vue'
+import SetMyMeeting from '@/views/Setting/Meeting/index.vue'
 
 const routes = [
   {
@@ -23,6 +24,11 @@ const routes = [
     component: Login,
   },
   // 老师登陆完成后选择时间
+  {
+    path: '/setting/my-metting',
+    name: 'setting',
+    component: SetMyMeeting,
+  },
   // 老师介绍页面（后置）
   // 商品列表页面（UK、USA）
   // 下单页面

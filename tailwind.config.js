@@ -15,6 +15,9 @@ export default {
       height: repeatMap(500, 1),
       margin: repeatMap(500, 1),
       padding: repeatMap(500, 1),
+      color: {
+        info: '#7f7f8e',
+      },
     },
   },
   plugins: [],
