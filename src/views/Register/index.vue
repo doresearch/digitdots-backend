@@ -9,49 +9,49 @@
     <div class="flex flex-1">
       <el-form ref="infoFormRef" label-width="200px" :label-position="labelPosition" :model="info" :rules="rules">
         <div v-if="AllStep[Step] === 'RoleInfo-Account'">
-          <el-form-item label="role" required>
+          <el-form-item label="role" prop="role" required>
             <el-radio-group v-model="info.role">
-              <el-radio label="1">Option A</el-radio>
-              <el-radio label="2">Option B</el-radio>
+              <el-radio label="2">Teacher</el-radio>
+              <el-radio label="3">Student</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="Email Address" required>
-            <el-input v-model="info.email" name="email" />
+          <el-form-item label="Email Address" prop="account" required>
+            <el-input v-model="info.account" name="email" />
           </el-form-item>
           <!-- 过于简单提示 -->
-          <el-form-item label="PassWord" required>
-            <el-input v-model="info.pass" name="password" />
+          <el-form-item label="PassWord" prop="password" required>
+            <el-input v-model="info.password" name="password" type="password" />
           </el-form-item>
           <!-- 不一致提示 -->
-          <el-form-item label="Confirm Password" required>
-            <el-input v-model="info.checkPass" name="password" />
+          <el-form-item label="Confirm Password" prop="checkPass" required>
+            <el-input v-model="info.checkPass" name="password" type="password" />
           </el-form-item>
-          <el-form-item label="You'll receive a 6-digit code, press it here" required>
-            <el-input v-model="info.inviteCode" />
+          <el-form-item label="You'll receive a 6-digit code, press it here" prop="inviteByCode">
+            <el-input v-model="info.inviteByCode" />
           </el-form-item>
         </div>
         <div v-if="AllStep[Step] === 'RoleInfo-Extend'">
           <div>Who you are?</div>
           <div class="flex justify-between">
-            <el-form-item label="First Name" required>
+            <el-form-item label="First Name" prop="fname" required>
               <el-input v-model="info.fname" />
             </el-form-item>
-            <el-form-item label="Last Name" required>
+            <el-form-item class="ml-2" label="Last Name" prop="lname" required>
               <el-input v-model="info.lname" />
             </el-form-item>
           </div>
-          <el-form-item label="where are you working for" required>
-            <el-input v-model="info.lname" />
+          <el-form-item label="where are you working for" prop="company">
+            <el-input v-model="info.company" />
           </el-form-item>
-          <el-form-item label="What's you major" required>
-            <el-input v-model="info.lname" />
+          <el-form-item label="What's you major" prop="major">
+            <el-input v-model="info.major" />
           </el-form-item>
-          <el-form-item label="What's your title in the school" required>
-            <el-input v-model="info.lname" />
+          <el-form-item label="What's your title in the school" prop="school">
+            <el-input v-model="info.school" />
           </el-form-item>
-          <el-form-item label="Use some tags to tell other what you are good at (maxium 3 tags)" required>
+          <!-- <el-form-item label="Use some tags to tell other what you are good at (maxium 3 tags)" required>
             <el-select v-model="info.tags" multiple :multiple-limit="3" placeholder="Please select" />
-          </el-form-item>
+          </el-form-item> -->
         </div>
       </el-form>
     </div>
@@ -65,25 +65,31 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 import type { FormInstance } from 'element-plus'
+import request from '../../axios/request'
+import { registerUser } from '../../api'
 
 const Step = ref(0)
 const AllStep = ['RoleInfo-Account', 'RoleInfo-Extend']
 
 const info = ref({
   role: '',
-  email: '',
-  pass: '',
+  account: '',
+  password: '',
   checkPass: '',
-  inviteCode: '',
+  inviteByCode: '',
   fname: '',
   lname: '',
   tags: [],
+  company: '',
+  major: '',
+  school: '',
 })
 const infoFormRef = ref<FormInstance>()
 
 const checkEmail = (rule: any, value: any, callback: any) => {}
 
 const validatePass = (rule: any, value: any, callback: any) => {
+  console.log(value)
   if (value === '') {
     callback(new Error('Please input the password'))
   } else {
@@ -98,7 +104,7 @@ const validatePass = (rule: any, value: any, callback: any) => {
 const validatePass2 = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('Please input the password again'))
-  } else if (value !== info.value.pass) {
+  } else if (value !== info.value.password) {
     callback(new Error("Two inputs don't match!"))
   } else {
     callback()
@@ -106,7 +112,7 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
 }
 
 const rules = {
-  email: [
+  account: [
     {
       required: true,
       message: 'Please input email address',
@@ -118,8 +124,9 @@ const rules = {
       trigger: ['blur', 'change'],
     },
   ],
-  pass: [{ validator: validatePass, trigger: 'blur' }],
+  password: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
+  role: [{ required: true, message: 'Please select role', trigger: 'change' }],
 }
 
 const labelPosition = computed(() => (Step.value === 0 ? 'left' : 'top'))
@@ -128,8 +135,12 @@ const NextStep = (formEl: FormInstance | undefined) => {
   if (!formEl) return
   formEl.validate(valid => {
     if (valid) {
-      Step.value++
-      localStorage.setItem('info', JSON.stringify(info.value))
+      if (Step.value + 1 > AllStep.length - 1) {
+        registerUser(info.value)
+      } else {
+        Step.value++
+        localStorage.setItem('info', JSON.stringify(info.value))
+      }
     }
   })
 }

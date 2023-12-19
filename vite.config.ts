@@ -46,6 +46,13 @@ export default defineConfig({
   },
   server: {
     port: 8066,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
   },
   build: {
     target: 'esnext',
