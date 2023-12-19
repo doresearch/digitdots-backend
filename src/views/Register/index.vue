@@ -64,9 +64,9 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import type { FormInstance } from 'element-plus'
-import request from '../../axios/request'
+import { FormInstance, ElMessage } from 'element-plus'
 import { registerUser } from '../../api'
+import md5 from 'md5'
 
 const Step = ref(0)
 const AllStep = ['RoleInfo-Account', 'RoleInfo-Extend']
@@ -136,7 +136,13 @@ const NextStep = (formEl: FormInstance | undefined) => {
   formEl.validate(valid => {
     if (valid) {
       if (Step.value + 1 > AllStep.length - 1) {
-        registerUser(info.value)
+        const params = info.value
+        params.password = md5(info.value.password + 'digitdots')
+        registerUser(params).then(res => {
+          if (res.data?.code === 0) {
+            ElMessage.success('register success')
+          }
+        })
       } else {
         Step.value++
         localStorage.setItem('info', JSON.stringify(info.value))
