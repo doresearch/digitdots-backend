@@ -12,6 +12,26 @@ const routes = [
     // The UK 、 USA
     component: Home,
   },
+  {
+    path: '/united-kingdom',
+    name: 'unitedKingdom',
+    component: () => import('@/views/UnitedKingdom.vue'),
+  },
+  {
+    path: '/united-states',
+    name: 'unitedStates',
+    component: () => import('@/views/UnitedStates.vue'),
+  },
+  {
+    path: '/booking',
+    name: 'booking',
+    component: () => import('@/views/Booking.vue'),
+  },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import('@/views/About.vue'),
+  },
   // 注册页面
   {
     path: '/register',

@@ -5,10 +5,10 @@
     </div>
 
     <div class="menu-content flex font-medium text-2xl">
-      <router-link class="item" to="/">The United Kingdom</router-link>
-      <router-link class="item" to="/">The United States</router-link>
-      <router-link class="item" to="/">Booking</router-link>
-      <router-link class="item" to="/">About</router-link>
+      <router-link class="item" to="/united-kingdom"> The United Kingdom </router-link>
+      <router-link class="item" to="/united-states">The United States</router-link>
+      <router-link class="item" to="/booking">Booking</router-link>
+      <router-link class="item" to="/about">About</router-link>
     </div>
 
     <div>
@@ -25,19 +25,11 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store/user'
 
 const user = useUserStore()
-
-const activeIndex = ref('first')
 const router = useRouter()
-
-const handleClick = (tab: any, event: any) => {
-  console.log(tab, event)
-  // router.push(`/${tab.paneName}`)
-}
 </script>
 
 <style lang="scss" scoped>
@@ -55,7 +47,7 @@ const handleClick = (tab: any, event: any) => {
       height: 4px;
     }
     &:hover,
-    &.active {
+    &.router-link-active {
       &::before {
         background-color: #000;
       }
