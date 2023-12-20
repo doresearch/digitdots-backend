@@ -5,7 +5,7 @@
 
 import axios, { AxiosResponse } from 'axios'
 import qs from 'qs'
-import { ElNotification as Notification } from 'element-plus'
+import { ElMessage } from 'element-plus'
 
 export interface IAjaxResponse<T> {
   code: number | null
@@ -48,13 +48,8 @@ service.interceptors.response.use(
     return response
   },
   error => {
-    Notification.closeAll()
-    Notification({
-      title: 'Request error',
-      message: 'Error status: ' + error.response.status,
-      type: 'error',
-      duration: 5 * 1000,
-    })
+    ElMessage.closeAll()
+    ElMessage.error('Error status: ' + error.response.status)
 
     return error.response
   }

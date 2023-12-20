@@ -1,14 +1,12 @@
 <template>
   <div class="common-layout">
-    <el-container>
-      <el-header class="main-hd">
-        <Header />
-      </el-header>
-      <el-main class="main-content">
-        <router-view></router-view>
-      </el-main>
-      <el-footer>Footer</el-footer>
-    </el-container>
+    <header class="main-hd">
+      <Header />
+    </header>
+    <main class="main-content">
+      <router-view></router-view>
+    </main>
+    <footer>Footer</footer>
   </div>
 </template>
 

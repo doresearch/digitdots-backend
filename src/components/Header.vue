@@ -1,20 +1,15 @@
 <template>
-  <div class="flex justify-between p-2 text-3xl">
-    <div class="bold">
+  <div class="flex justify-between p-2 pt-20 text-3xl">
+    <div class="font-black">
       <router-link to="/">Digitdots</router-link>
     </div>
-    <!-- <el-tabs v-model="activeName" class="flex" @tab-click="handleClick">
-      <el-tab-pane label="Home" name="Home"></el-tab-pane>
-      <el-tab-pane label="Home1" name="Home1"></el-tab-pane>
-      <el-tab-pane label="Order" name="Order"></el-tab-pane>
-      <el-tab-pane label="Home3" name="Home3"></el-tab-pane>
-    </el-tabs> -->
-    <el-menu :default-active="activeIndex" mode="horizontal" :ellipsis="false" @select="handleClick">
-      <el-menu-item index="0">Home</el-menu-item>
-      <el-menu-item index="1">Home1</el-menu-item>
-      <el-menu-item index="2">Home2</el-menu-item>
-      <el-menu-item index="3">Home3</el-menu-item>
-    </el-menu>
+
+    <div class="menu-content flex font-medium text-2xl">
+      <router-link class="item" to="/">The United Kingdom</router-link>
+      <router-link class="item" to="/">The United States</router-link>
+      <router-link class="item" to="/">Booking</router-link>
+      <router-link class="item" to="/">About</router-link>
+    </div>
 
     <div>
       <div class="flex" v-if="user.isLogin">
@@ -44,3 +39,27 @@ const handleClick = (tab: any, event: any) => {
   // router.push(`/${tab.paneName}`)
 }
 </script>
+
+<style lang="scss" scoped>
+.menu-content {
+  column-gap: 24px;
+
+  .item {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 0;
+      width: 100%;
+      height: 4px;
+    }
+    &:hover,
+    &.active {
+      &::before {
+        background-color: #000;
+      }
+    }
+  }
+}
+</style>

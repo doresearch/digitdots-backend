@@ -69,7 +69,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup name="Register">
 import { ref, computed } from 'vue'
 import { FormInstance, ElMessage } from 'element-plus'
 import { registerUser } from '../../api'
@@ -151,7 +151,7 @@ const NextStep = (formEl: FormInstance | undefined) => {
         registerUser(params).then(res => {
           if (res.data?.code === 0) {
             ElMessage.success('register success')
-            router.push('/home')
+            router.push('/login')
           } else {
             ElMessage.error(res.data?.message)
           }
