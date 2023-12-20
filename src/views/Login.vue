@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts" setup>
-import { loginUser } from '@/api'
+import { UserService } from '@/api'
 import { ElMessage, FormInstance } from 'element-plus'
 import md5 from 'md5'
 import { reactive, ref } from 'vue'
@@ -55,22 +55,21 @@ const rules = {
 
 const onClickLogin = (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  formEl.validate(valid => {
+  formEl.validate(async valid => {
     if (!valid) {
       return
     }
 
     const params = info
     params.password = md5(info.password + 'digitdots')
-    loginUser(params).then(res => {
-      if (res.data?.code === 0) {
-        ElMessage.success('login success')
-        localStorage.setItem('token', res.data.result.token || '')
-        router.push('/home')
-      } else {
-        ElMessage.error(res.data?.message)
-      }
-    })
+    const { code, result, message } = await UserService.authLogin<{ token: string }>(params)
+    if (code === 0) {
+      ElMessage.success('login success')
+      localStorage.setItem('token', 'Bearer ' + result.token || '')
+      router.push('/home')
+    } else {
+      ElMessage.error(message)
+    }
   })
 }
 </script>

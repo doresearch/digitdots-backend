@@ -9,7 +9,7 @@ import { ElNotification as Notification } from 'element-plus'
 
 export interface IAjaxResponse<T> {
   code: number | null
-  data: T | null
+  result: T | null
   message: string | null
   [key: string]: any
 }
@@ -29,7 +29,7 @@ service.interceptors.request.use(
     config.baseURL = import.meta.env.VITE_API_URL
     let token = ''
     if (config.url !== '/auth/login') {
-      token = 'Bearer ' + localStorage.getItem('token')
+      token = localStorage.getItem('token')
       config.headers.Authorization = token
     }
     return config
