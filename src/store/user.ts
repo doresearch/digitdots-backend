@@ -2,6 +2,7 @@ import { UserService } from '@/api'
 import { defineStore } from 'pinia'
 
 export type User = {
+  uid: string
   account: string
   role: 0 | 1 | 2 | 3
   fname: string
@@ -17,6 +18,7 @@ interface UserState extends User {
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
     isLogin: false,
+    uid: '',
     account: '',
     role: 0,
     fname: '',
