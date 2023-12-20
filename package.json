@@ -21,9 +21,11 @@
     ]
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "@headlessui/vue": "^1.7.16",
     "@heroicons/vue": "^2.0.18",
     "axios": "^1.6.2",
+    "dayjs": "^1.11.10",
     "element-plus": "^2.4.4",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
