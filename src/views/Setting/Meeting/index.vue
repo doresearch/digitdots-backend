@@ -17,7 +17,7 @@
       </div>
       <div>
         <el-checkbox-group v-model="checkedOrders">
-          <el-checkbox v-for="item in showList" :key="item.orderTime" :label="item.orderTime">
+          <el-checkbox v-for="item in waitList" :key="item.orderTime" :label="item.orderTime">
             {{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}
             <el-button
               class="!m-0 !p-0 !mb-1.5 !ml-2"
@@ -30,16 +30,33 @@
         </el-checkbox-group>
 
         <el-button type="success" :disabled="checkedOrders.length === 0" @click="submit">Make Sure</el-button>
+        <div class="text-xl text-info">
+          <div>already created</div>
+          <div v-for="item in orderedTimes" :key="item">
+            {{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}
+            <el-button
+              class="!m-0 !p-0 !mb-1.5 !ml-2"
+              :icon="Delete"
+              @click="removeTime(item)"
+              type="danger"
+              text
+            ></el-button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
 import { ref, effect, computed } from 'vue'
-import { searchClassByTeacherId, saveOrders } from '@/api/teacher'
+import { searchClassByTeacherId, saveOrders, delMeeting } from '@/api/teacher'
 import { Plus, Delete } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import dayjs from 'dayjs'
+import { useUserStore } from '@/store/user'
+
+const user = useUserStore()
+
 /**
  * 老师上架商品
  */
@@ -65,7 +82,7 @@ function disabledDate(time) {
 
 function addToWaitList() {
   // 在waitList、orderedTimes中相同的时间不允许增加
-  const isExist = showList.value.find(item => item.orderTime === newTime.value)
+  const isExist = showList.value.find(item => item.orderTime === dayjs(newTime.value).valueOf())
   if (isExist) {
     ElMessage.error('该时间已经存在')
     return
@@ -79,8 +96,20 @@ function addToWaitList() {
 }
 
 function removeTime(constructor) {
-  if (constructor.id) {
-    orderedTimes.value = orderedTimes.value.filter(item => item.id !== constructor.id)
+  if (constructor.meetingId) {
+    delMeeting({
+      meetingId: constructor.meetingId,
+    }).then(res => {
+      if (res.code) {
+        orderedTimes.value = orderedTimes.value.filter(item => item.meetingId !== constructor.meetingId)
+        ElMessage({
+          type: 'success',
+          message: res.data.result,
+        })
+      } else {
+        ElMessage.error(res.data.message)
+      }
+    })
   } else {
     waitList.value = waitList.value.filter(item => item.orderTime !== constructor.orderTime)
   }
@@ -88,27 +117,37 @@ function removeTime(constructor) {
 
 function submit() {
   const params = {
-    teacherId: '118ff182-74f7-43e9-8fe9-ade6f1906a24',
+    teacherId: user.uid,
     meeting: showList.value.filter(item => {
       return checkedOrders.value.indexOf(item.orderTime) !== -1
     }),
   }
 
   saveOrders(params).then(res => {
-    console.log(res)
-    orderedTimes.value = res.data.result
+    getOrderInfo()
   })
 }
 
 function getOrderInfo() {
   searchClassByTeacherId({
-    teacherId: '118ff182-74f7-43e9-8fe9-ade6f1906a24',
+    teacherId: user.uid,
   }).then(res => {
-    console.log(res)
+    orderedTimes.value = res.data.result?.map?.(item => {
+      return {
+        orderTime: Number(item.order_time),
+        meetingId: item.meeting_id,
+      }
+    })
+
+    checkedOrders.value = res.data.result?.map?.(item => {
+      return item.meeting_id
+    })
   })
 }
 
 effect(() => {
-  getOrderInfo()
+  if (user.uid) {
+    getOrderInfo()
+  }
 })
 </script>

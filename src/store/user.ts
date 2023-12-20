@@ -9,6 +9,7 @@ export type User = {
   lname: string
   address: string
   invite_code: string
+  uid: string
 }
 
 interface UserState extends User {
@@ -25,6 +26,7 @@ export const useUserStore = defineStore('user', {
     lname: '',
     address: '',
     invite_code: '',
+    uid: '',
   }),
   actions: {
     async getUserInfo() {

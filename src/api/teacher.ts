@@ -7,3 +7,7 @@ export const searchClassByTeacherId = (params: { teacherId: string }) => {
 export const saveOrders = (params: { teacherId: string }) => {
   return request.post('/meeting/saveOrders', params)
 }
+
+export const delMeeting = (params: { meetingId: string }) => {
+  return request.post('/meeting/delete', params)
+}
