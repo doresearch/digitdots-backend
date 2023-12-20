@@ -13,7 +13,12 @@
 </template>
 
 <script lang="ts" setup>
+import { useUserStore } from '@/store/user'
 import Header from './Header.vue'
+
+const user = useUserStore()
+
+user.getUserInfo()
 </script>
 
 <style lang="scss" scoped>

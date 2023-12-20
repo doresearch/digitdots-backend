@@ -1,17 +1,20 @@
+import { UserService } from '@/api'
 import { defineStore } from 'pinia'
 
-interface UserState {
-  isLogin: boolean
+export type User = {
   account: string
   role: 0 | 1 | 2 | 3
   fname: string
   lname: string
   address: string
   invite_code: string
-  invited_by_code: string
 }
 
-export const useUserStore = defineStore('app', {
+interface UserState extends User {
+  isLogin: boolean
+}
+
+export const useUserStore = defineStore('user', {
   state: (): UserState => ({
     isLogin: false,
     account: '',
@@ -20,11 +23,13 @@ export const useUserStore = defineStore('app', {
     lname: '',
     address: '',
     invite_code: '',
-    invited_by_code: '',
   }),
   actions: {
-    getUserInfo() {
-      //
+    async getUserInfo() {
+      const { result } = await UserService.getUserData<User>()
+      if (result) {
+        this.$patch({ ...result, isLogin: true })
+      }
     },
   },
 })

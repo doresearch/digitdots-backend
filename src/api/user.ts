@@ -4,9 +4,16 @@ import CatchAPI from '@/shared/decorators/catchAPI'
 abstract class UserService {
   @CatchAPI()
   public static async authLogin<T>(params): Promise<IAjaxResponse<T>> {
-    const { data } = await request.post('/auth/login', params)
+    const { data } = await request.post<T>('/auth/login', params)
 
-    return data as IAjaxResponse<T>
+    return data
+  }
+
+  @CatchAPI()
+  public static async getUserData<T>(): Promise<IAjaxResponse<T>> {
+    const { data } = await request.get<T>('/user/info')
+
+    return data
   }
 }
 

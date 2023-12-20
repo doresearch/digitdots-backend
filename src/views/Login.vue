@@ -22,12 +22,14 @@
 
 <script lang="ts" setup>
 import { UserService } from '@/api'
+import { useUserStore } from '@/store/user'
 import { ElMessage, FormInstance } from 'element-plus'
 import md5 from 'md5'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const user = useUserStore()
 
 const infoFormRef = ref<FormInstance>()
 
@@ -66,7 +68,8 @@ const onClickLogin = (formEl: FormInstance | undefined) => {
     if (code === 0) {
       ElMessage.success('login success')
       localStorage.setItem('token', 'Bearer ' + result.token || '')
-      router.push('/home')
+      user.getUserInfo()
+      router.push('/')
     } else {
       ElMessage.error(message)
     }

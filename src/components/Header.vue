@@ -1,6 +1,8 @@
 <template>
   <div class="flex justify-between p-2 text-3xl">
-    <div class="bold">Digitdots</div>
+    <div class="bold">
+      <router-link to="/">Digitdots</router-link>
+    </div>
     <!-- <el-tabs v-model="activeName" class="flex" @tab-click="handleClick">
       <el-tab-pane label="Home" name="Home"></el-tab-pane>
       <el-tab-pane label="Home1" name="Home1"></el-tab-pane>
@@ -20,7 +22,6 @@
         <div>{{ UserInfo.fName }}</div>
       </div>
       <div v-else>
-        <router-link to="/">Home</router-link>
         <router-link to="/register">Register</router-link>
         <router-link to="/login">Login</router-link>
       </div>
