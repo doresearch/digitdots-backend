@@ -17,9 +17,9 @@
     </el-menu>
 
     <div>
-      <div class="flex" v-if="isLogin">
+      <div class="flex" v-if="user.isLogin">
         <div class="border-rounded p-2"></div>
-        <div>{{ UserInfo.fName }}</div>
+        <div>{{ user.fname }}</div>
       </div>
       <div v-else>
         <router-link to="/register">Register</router-link>
@@ -32,12 +32,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/store/user'
 
-const UserInfo = {
-  fName: 'wangbo',
-  lName: 'zhang',
-}
-const isLogin = false
+const user = useUserStore()
 
 const activeIndex = ref('first')
 const router = useRouter()
