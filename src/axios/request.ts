@@ -44,6 +44,12 @@ service.interceptors.response.use(
   response => {
     if (response.data.code === 401) {
       callLogin()
+      return Promise.reject('Login timeout, please log in again')
+    }
+    if (response.data.code !== 0) {
+      ElMessage.closeAll()
+      ElMessage.error(response.data.message)
+      return Promise.reject(response.data.message)
     }
     return response
   },
