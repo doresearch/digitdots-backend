@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <div class="banner-content p-relative">
-      <img class="banner-bg" src="@/assets/bg1.jpg" alt="" />
+      <div class="banner-bg-wrap">
+        <img class="banner-bg opacity-75" src="@/assets/bg1.jpg" alt="" />
+      </div>
       <div class="content p-absolute text-white">
         <div class="text-4xl font-bold">Link up & Grow up</div>
         <div class="p-2 text-lg">
@@ -58,9 +60,15 @@
   }
 }
 
-.banner-bg {
+.banner-bg-wrap {
   width: 100%;
   height: 740px;
+  background: rgb(40, 26, 57);
+}
+
+.banner-bg {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
 }
