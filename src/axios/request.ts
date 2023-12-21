@@ -6,6 +6,7 @@
 import axios, { AxiosResponse } from 'axios'
 import qs from 'qs'
 import { ElMessage } from 'element-plus'
+import router from '@/router'
 
 export interface IAjaxResponse<T> {
   code: number | null
@@ -15,7 +16,7 @@ export interface IAjaxResponse<T> {
 }
 
 function callLogin() {
-  // TODO:
+  router.push({ path: '/login' })
 }
 
 // 创建 axios 实例
@@ -27,11 +28,9 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     config.baseURL = import.meta.env.VITE_API_URL
-    let token = ''
-    if (config.url !== '/auth/login') {
-      token = localStorage.getItem('token')
-      config.headers.Authorization = token
-    }
+    config.headers.Authorization = localStorage.getItem('token') || ''
+    // if (config.url !== '/auth/login') {
+    // }
     return config
   },
   error => {
@@ -42,10 +41,6 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   response => {
-    if (response.data.code === 401) {
-      callLogin()
-      return Promise.reject('Login timeout, please log in again')
-    }
     if (response.data.code !== 0) {
       ElMessage.closeAll()
       ElMessage.error(response.data.message)
@@ -54,9 +49,13 @@ service.interceptors.response.use(
     return response
   },
   error => {
+    if (error.response && [401].includes(error.response.status)) {
+      callLogin()
+      return Promise.reject('Login timeout, please log in again')
+    }
+
     ElMessage.closeAll()
     ElMessage.error('Error status: ' + error.response.status)
-
     return error.response
   }
 )
