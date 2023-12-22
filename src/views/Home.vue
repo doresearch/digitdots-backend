@@ -33,6 +33,30 @@
         </p>
       </div>
     </div>
+
+    <div class="grid grid-rows-3 grid-cols-[100%] h-[466px] bg-slate-50">
+      <p class="text-6xl font-bold mt-32 text-center">What will you get</p>
+      <div class="flex mt-12">
+        <div>
+          <p class="text-2xl font-medium">Know more about your dream schools</p>
+          <div>
+            Connecting with a teacher can lead to personalized guidance tailored to your academic and career goals. They
+            can help you choose the right
+          </div>
+        </div>
+        <div>
+          <p class="text-2xl font-medium">Know more about your major</p>
+          <div>
+            By discussing your academic and career interests with a teacher who has experience at the college, you can
+            gain insights into how well the
+          </div>
+        </div>
+        <div>
+          <p class="text-2xl font-medium">Get a more professional tutorial</p>
+          <div>A more professional critique of your work so that you can better improve the quality of your work.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
