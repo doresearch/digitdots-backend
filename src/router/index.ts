@@ -3,6 +3,7 @@ import Home from '@/views/Home.vue'
 import Register from '@/views/Register/index.vue'
 import Login from '@/views/Login.vue'
 import SetMyMeeting from '@/views/Setting/Meeting/index.vue'
+import TeacherIntroduce from '@/views/TeacherIntroduce/index.vue'
 
 const routes = [
   {
@@ -50,6 +51,11 @@ const routes = [
     component: SetMyMeeting,
   },
   // 老师介绍页面（后置）
+  {
+    path: '/teacher-introduce',
+    name: 'TeacherIntroduce',
+    component: TeacherIntroduce,
+  },
   // 商品列表页面（UK、USA）
   // 下单页面
   // 订单详情
