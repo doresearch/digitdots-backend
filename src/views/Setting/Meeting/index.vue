@@ -1,21 +1,20 @@
 <template>
-  <div class="w-200 mx-auto">
-    <div class="bold text-xl">Hi, {{ userInfo.fname }} {{ userInfo.lname }}</div>
-    <div class="w-200 mt-4">
-      <div class="text-xl text-info">
-        please add your order information here
+  <div class="w-300 mx-auto">
+    <div class="font-bold text-xl">Hi {{ userInfo.fname }} {{ userInfo.lname }}, nice to meet you.</div>
+    <div class="font-bold text-xl text-info mt-4">
+      I’m glad to welcome you here and thank you for bring your knowledge to others.
+    </div>
+    <div class="w-full mt-25 flex">
+      <div class="flex-1">
+        <div class="text-xl mb-7">Please set the time you are available for students to choose a tutorial here.</div>
         <!-- 禁止选取今天之前的时间 -->
         <el-date-picker v-model="newTime" type="datetime" :disabled-date="disabledDate"></el-date-picker>
-        <el-button
-          class="ml-4"
-          type="success"
-          :icon="Plus"
-          plain
-          @click="addToWaitList"
-          :disabled="newTime === ''"
-        ></el-button>
+        <el-button class="ml-4" type="success" :icon="Plus" plain @click="addToWaitList" :disabled="newTime === ''"
+          >Add</el-button
+        >
       </div>
-      <div>
+      <div class="border border-solid border-gray-200 mt-10 mx-20"></div>
+      <div class="min-h-[20rem]">
         <el-checkbox-group v-model="checkedOrders">
           <el-checkbox v-for="item in waitList" :key="item.orderTime" :label="item.orderTime">
             {{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}
@@ -28,10 +27,8 @@
             ></el-button>
           </el-checkbox>
         </el-checkbox-group>
-
-        <el-button type="success" :disabled="checkedOrders.length === 0" @click="submit">Make Sure</el-button>
         <div class="text-xl text-info">
-          <div>already created</div>
+          <div>Available tutorial times</div>
           <div v-for="item in orderedTimes" :key="item">
             {{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}
             <el-button
@@ -45,6 +42,9 @@
         </div>
       </div>
     </div>
+    <el-button class="float-right" type="success" :disabled="checkedOrders.length === 0" @click="submit"
+      >Make Sure</el-button
+    >
   </div>
 </template>
 <script lang="ts" setup>
