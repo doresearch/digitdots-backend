@@ -47,8 +47,8 @@
     </div>
   </div>
 </template>
-<script lang="ts" setup>
-import { ref, effect, computed } from 'vue'
+<script lang="tsx" setup>
+import { ref, effect, computed, h } from 'vue'
 import { searchClassByTeacherId, saveOrders, delMeeting } from '@/api/teacher'
 import { Plus, Delete } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
@@ -102,7 +102,21 @@ function removeTime(constructor) {
     }).then(res => {
       if (res.code) {
         orderedTimes.value = orderedTimes.value.filter(item => item.meetingId !== constructor.meetingId)
-        ElMessage.success(res.data.result)
+        // Hi Hao, congratulation!
+        ElMessage.success(
+          // 组件渲染
+          h(
+            'div',
+            {
+              class: 'font-bold text-xl',
+            },
+            [
+              h('div', 'Hi Hao, congratulation!'),
+              h('div', "You've set up the time you're available for, enjoy your journey here."),
+            ]
+          )
+        )
+        // You've set up the time you're available for, enjoy your journey here.
       } else {
         ElMessage.error(res.data.message)
       }
