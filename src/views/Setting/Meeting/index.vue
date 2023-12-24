@@ -1,6 +1,6 @@
 <template>
   <div class="w-300 mx-auto">
-    <div class="font-bold text-xl">Hi {{ userInfo.fname }} {{ userInfo.lname }}, nice to meet you.</div>
+    <div class="font-bold text-xl pt-20">Hi {{ userInfo.fname }} {{ userInfo.lname }}, nice to meet you.</div>
     <div class="font-bold text-xl text-info mt-4">
       I’m glad to welcome you here and thank you for bring your knowledge to others.
     </div>
@@ -12,10 +12,7 @@
         <el-button class="ml-4" type="success" :icon="Plus" plain @click="addToWaitList" :disabled="newTime === ''"
           >Add</el-button
         >
-      </div>
-      <div class="border border-solid border-gray-200 mt-10 mx-20"></div>
-      <div class="min-h-[20rem]">
-        <el-checkbox-group v-model="checkedOrders">
+        <el-checkbox-group class="w-10 mt-7" v-model="checkedOrders">
           <el-checkbox v-for="item in waitList" :key="item.orderTime" :label="item.orderTime">
             {{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}
             <el-button
@@ -27,8 +24,11 @@
             ></el-button>
           </el-checkbox>
         </el-checkbox-group>
+      </div>
+      <div class="border border-solid border-gray-200 mt-10 mx-20"></div>
+      <div class="min-h-[20rem]">
         <div class="text-xl text-info">
-          <div>Available tutorial times</div>
+          <div class="mb-7">Available tutorial times</div>
           <div v-for="item in orderedTimes" :key="item">
             {{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}
             <el-button
@@ -102,10 +102,7 @@ function removeTime(constructor) {
     }).then(res => {
       if (res.code) {
         orderedTimes.value = orderedTimes.value.filter(item => item.meetingId !== constructor.meetingId)
-        ElMessage({
-          type: 'success',
-          message: res.data.result,
-        })
+        ElMessage.success(res.data.result)
       } else {
         ElMessage.error(res.data.message)
       }
@@ -116,6 +113,9 @@ function removeTime(constructor) {
 }
 
 function submit() {
+  if (checkedOrders.value.length === 0) {
+    return ElMessage.error('Please check at least one time')
+  }
   const params = {
     teacherId: user.uid,
     meeting: showList.value.filter(item => {
@@ -124,6 +124,9 @@ function submit() {
   }
 
   saveOrders(params).then(res => {
+    waitList.value = waitList.value.filter(item => {
+      return checkedOrders.value.indexOf(item.orderTime) === -1
+    })
     getOrderInfo()
   })
 }
