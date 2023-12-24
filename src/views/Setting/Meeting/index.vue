@@ -27,10 +27,10 @@
       </div>
       <div class="border border-solid border-gray-200 mt-10 mx-20"></div>
       <div class="min-h-[20rem]">
-        <div class="text-xl text-info">
+        <div class="text-xl text-info leading-1">
           <div class="mb-7">Available tutorial times</div>
-          <div v-for="item in orderedTimes" :key="item">
-            {{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}
+          <div class="bg-[#A1E688] mb-2 w-100 flex justify-between px-4" v-for="item in orderedTimes" :key="item">
+            <div class="mt-2">{{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}</div>
             <el-button
               class="!m-0 !p-0 !mb-1.5 !ml-2"
               :icon="Delete"
@@ -42,7 +42,7 @@
         </div>
       </div>
     </div>
-    <el-button class="float-right" type="success" :disabled="checkedOrders.length === 0" @click="submit"
+    <el-button class="float-right mt-8" type="success" :disabled="checkedOrders.length === 0" @click="submit"
       >Make Sure</el-button
     >
   </div>
