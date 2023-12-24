@@ -42,9 +42,9 @@
         </div>
       </div>
     </div>
-    <el-button class="float-right mt-8" type="success" :disabled="checkedOrders.length === 0" @click="submit"
-      >Make Sure</el-button
-    >
+    <div class="flex justify-end mt-8">
+      <el-button type="success" :disabled="checkedOrders.length === 0" @click="submit">Make Sure</el-button>
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
