@@ -6,7 +6,11 @@ import eslintPlugin from 'vite-plugin-eslint'
 import ElementPlus from 'unplugin-element-plus/dist/vite'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import federation from '@originjs/vite-plugin-federation'
+import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
+import { createHtmlPlugin } from 'vite-plugin-html'
 
+const clientID = 'Ac0OUgp3Bql521DY-3ycWeKV_k9EwgN5Ty4qsWoDrC-9HT3OaVakvYSD-IctpwVsA5fuOxxNekvtAfu7'
+const secret = 'ENkjwaBjAhZb_2f38Wl5fQAh3qILzqdwKo0aUDe4f_6PlGmodhgHD3xWK3Aty0ZOR4pjD-TUjogKSe0p'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -30,6 +34,35 @@ export default defineConfig({
         // },
       },
       shared: ['vue', 'pinia'],
+    }),
+    createHtmlPlugin({
+      minify: true,
+      /**
+       * After writing entry here, you will not need to add script tags in `index.html`, the original tags need to be deleted
+       * @default src/main.ts
+       */
+      entry: 'src/main.ts',
+      /**
+       * Data that needs to be injected into the index.html ejs template
+       */
+      inject: {
+        data: {
+          title: 'index',
+          injectScript: `<script src="https://www.paypal.com/sdk/js?client-id=${clientID}"></script>`,
+        },
+        tags: [
+          {
+            injectTo: 'body-prepend',
+            tag: 'div',
+            attrs: {
+              id: 'tag',
+            },
+          },
+        ],
+      },
+    }),
+    resolveExternalsPlugin({
+      paypal: 'paypal',
     }),
   ],
   css: {
