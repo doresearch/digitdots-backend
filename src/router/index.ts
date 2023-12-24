@@ -3,7 +3,7 @@ import Home from '@/views/Home.vue'
 import Register from '@/views/Register/index.vue'
 import Login from '@/views/Login.vue'
 import SetMyMeeting from '@/views/Setting/Meeting/index.vue'
-import TeacherIntroduce from '@/views/TeacherIntroduce/index.vue'
+import TeacherIntroduce from '@/views/Book/TeacherIntroduce/index.vue'
 
 const routes = [
   {
@@ -58,6 +58,11 @@ const routes = [
   },
   // 商品列表页面（UK、USA）
   // 下单页面
+  {
+    path: '/order-detail',
+    name: 'orderDetail',
+    component: () => import('@/views/Book/OrderDetailInfo/index.vue'),
+  },
   // 订单详情
   // 支付页面
 ]
