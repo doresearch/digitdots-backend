@@ -1,5 +1,5 @@
 <template>
-  <div class="m-auto w-200">
+  <div class="m-auto mt-10 w-300">
     <TeacherInfo />
     <Sku />
   </div>

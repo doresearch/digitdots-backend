@@ -1,8 +1,15 @@
 <template>
-  <div class="mt-4">
-    <div class="border p-4 flex justify-between" :key="item.meeting_id" v-for="item in infos">
-      <div class="bold p-2">order time: {{ item.order_time }}</div>
-      <el-button type="primary" @click="preOrder(item.meeting_id)">order</el-button>
+  <div class="mt-10">
+    <div class="text-2xl mb-4">Book the time for your next tutorial</div>
+    <div
+      class="border p-4 mb-4 flex justify-between hover:bg-info group rounded-md shadow-md hover:shadow-none"
+      :key="item.meeting_id"
+      v-for="item in infos"
+    >
+      <div class="p-2 text-info group-hover:text-white">
+        order time: <span class="font-bold text-xl text-black group-hover:text-white">{{ item.order_time }}</span>
+      </div>
+      <el-button type="primary" @click="preOrder(item.meeting_id)">Book</el-button>
     </div>
   </div>
 </template>
@@ -35,6 +42,8 @@ const getSkuList = async () => {
         order_time: dayjs(item.order_time, 'x').format('YYYY-MM-DD HH:mm:ss'),
       }
     })
+
+    console.log(infos)
   }
 }
 

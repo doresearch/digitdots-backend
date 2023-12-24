@@ -1,5 +1,5 @@
 <template>
-  <div class="w-300 mx-auto">
+  <div class="w-300 mx-auto bg-white">
     <div class="font-bold text-xl pt-20">Hi {{ userInfo.fname }} {{ userInfo.lname }}, nice to meet you.</div>
     <div class="font-bold text-xl text-info mt-4">
       I’m glad to welcome you here and thank you for bring your knowledge to others.
@@ -27,10 +27,10 @@
       </div>
       <div class="border border-solid border-gray-200 mt-10 mx-20"></div>
       <div class="min-h-[20rem]">
-        <div class="text-xl text-info leading-1">
+        <div class="text-xl leading-1">
           <div class="mb-7">Available tutorial times</div>
-          <div class="bg-[#A1E688] mb-2 w-100 flex justify-between px-4" v-for="item in orderedTimes" :key="item">
-            <div class="mt-2">{{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}</div>
+          <div class="bg-success-light mb-2 w-100 flex justify-between px-4" v-for="item in orderedTimes" :key="item">
+            <div class="mt-2 text-success-dark">{{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}</div>
             <el-button
               class="!m-0 !p-0 !mb-1.5 !ml-2"
               :icon="Delete"

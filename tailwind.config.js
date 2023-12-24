@@ -6,6 +6,13 @@ const repeatMap = (times, step) => {
   return result
 }
 
+const color = {
+  info: '#7f7f8e',
+  success: '#f0f9eb',
+  'success-light': '#f0f9eb',
+  'success-dark': '#67c23a',
+}
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{ts,vue,js}'],
@@ -15,9 +22,9 @@ export default {
       height: repeatMap(500, 1),
       margin: repeatMap(500, 1),
       padding: repeatMap(500, 1),
-      color: {
-        info: '#7f7f8e',
-      },
+      color,
+      textColor: color,
+      backgroundColor: color,
     },
   },
   plugins: [],
