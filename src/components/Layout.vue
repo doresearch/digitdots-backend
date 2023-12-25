@@ -6,7 +6,12 @@
     <main class="main-content">
       <router-view></router-view>
     </main>
-    <footer>Footer</footer>
+    <footer class="py-12 text-center text-lg">
+      <div class="font-bold text-3xl">Buzziing</div>
+      <div class="font-semibold mt-2">mr.menghao@gmail.com</div>
+      <div class="mt-2 font-thin text-info">Buzziing Corporation ©2023</div>
+      <div class="mt-1 font-thin text-info">All rights reserved.</div>
+    </footer>
   </div>
 </template>
 

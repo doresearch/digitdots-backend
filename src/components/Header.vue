@@ -11,14 +11,17 @@
       <router-link class="item" to="/about">About</router-link>
     </div>
 
-    <div>
+    <div class="w-60 text-lg">
       <div class="flex" v-if="user.isLogin">
         <div class="border-rounded p-2"></div>
         <div>{{ user.fname }}</div>
+        <div>
+          <el-icon><SwitchButton /></el-icon>
+        </div>
       </div>
       <div v-else>
         <router-link to="/register">Register</router-link>
-        <router-link to="/login">Login</router-link>
+        <router-link class="ml-2" to="/login">Login</router-link>
       </div>
     </div>
   </div>
