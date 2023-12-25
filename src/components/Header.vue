@@ -14,8 +14,8 @@
     <div class="w-60 text-lg">
       <div class="flex" v-if="user.isLogin">
         <div class="border-rounded p-2"></div>
-        <div>{{ user.fname }}</div>
-        <div>
+        <div class="cursor-normal">{{ user.fname }}</div>
+        <div class="ml-2 mt-0.5 cursor-pointer" @click="logout">
           <el-icon><SwitchButton /></el-icon>
         </div>
       </div>
@@ -30,9 +30,11 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store/user'
+import { SwitchButton } from '@element-plus/icons-vue'
 
 const user = useUserStore()
 const router = useRouter()
+function logout() {}
 </script>
 
 <style lang="scss" scoped>
