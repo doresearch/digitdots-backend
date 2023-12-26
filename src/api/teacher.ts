@@ -1,7 +1,11 @@
-import request from '@/axios/request'
+import request, { IAjaxResponse } from '@/axios/request'
 
 export const searchClassByTeacherId = (params: { teacherId: string }) => {
   return request.post('/meeting/searchByTeacherId', params)
+}
+
+export const searchClassByTeacherIds = (params: { teacherIds: string[] }) => {
+  return request.post('/meeting/searchByTeacherIds', params)
 }
 
 export const saveOrders = (params: { teacherId: string }) => {

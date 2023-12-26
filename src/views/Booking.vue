@@ -10,21 +10,58 @@
           alt=""
         />
       </div>
-      <div class="border flex-1 text-2xl mt-2">
+      <div class="border flex-1 text-3xl p-4">
         <div>{{ item.fname }} {{ item.lname }}</div>
+        <div class="border-t my-4"></div>
+        <div class="flex flex-wrap">
+          <div class="text-xl font-thin ml-2" v-for="citem in item.meeting" :key="citem.id">
+            {{ dayjs(citem.order_time, 'x').format('YYYY-MM-DD HH:mm') }}
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { effect, ref } from 'vue'
-import { getAllTeacher } from '@/api/teacher'
+import dayjs from 'dayjs'
+import { getAllTeacher, searchClassByTeacherIds } from '@/api/teacher'
 
 const teacherList = ref(0)
 
 async function getAllTeacherInfo() {
   const techerInfo = await getAllTeacher()
-  teacherList.value = techerInfo.data?.result
+  getTeacherInfo(techerInfo.data?.result)
+}
+
+// 通过老师id获取老师信息
+async function getTeacherInfo(teacher: any[]) {
+  const teacherIds = teacher.map(item => {
+    return item.uid
+  })
+  const info = await searchClassByTeacherIds({ teacherIds })
+  const classCache = {}
+  info.data?.result.map(item => {
+    if (classCache[item.teacher_id]) {
+      classCache[item.teacher_id].push(item)
+    } else {
+      classCache[item.teacher_id] = [item]
+    }
+  })
+
+  teacherList.value = teacher
+    .map(item => {
+      return { ...item, meeting: classCache[item.uid] }
+    })
+    .filter(item => item.meeting)
+
+  console.log(
+    teacher
+      .map(item => {
+        return { ...item, meeting: classCache[item.uid] }
+      })
+      .filter(item => item.meeting)
+  )
 }
 
 effect(() => {
