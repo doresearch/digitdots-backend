@@ -38,5 +38,6 @@ user.getUserInfo()
 .main-content {
   margin-top: 100px;
   padding: 0;
+  min-height: calc(100vh - 277px);
 }
 </style>

@@ -34,7 +34,10 @@ import { SwitchButton } from '@element-plus/icons-vue'
 
 const user = useUserStore()
 const router = useRouter()
-function logout() {}
+function logout() {
+  localStorage.setItem('token', '')
+  user.logout()
+}
 </script>
 
 <style lang="scss" scoped>
