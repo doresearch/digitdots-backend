@@ -12,6 +12,6 @@ export const delMeeting = (params: { meetingId: string }) => {
   return request.post('/meeting/delete', params)
 }
 
-export const getAllTeacher = () => {
+export const getAllTeacher = (): Promise<IAjaxResponse<any>> => {
   return request.post('/user/getAllTeacher')
 }

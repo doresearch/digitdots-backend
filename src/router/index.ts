@@ -13,8 +13,7 @@ const routes = [
   },
   {
     path: '/united-kingdom',
-    name: 'unitedKingdom',
-    component: Home,
+    redirect: '/',
   },
   {
     path: '/united-states',

@@ -57,10 +57,13 @@
         </div>
       </div>
     </div>
+    <Teacher />
   </div>
 </template>
 
-<script lang="ts" setup name="Home"></script>
+<script lang="ts" setup name="Home">
+import Teacher from './Home/Teacher.vue'
+</script>
 
 <style lang="scss" scoped>
 .home {
