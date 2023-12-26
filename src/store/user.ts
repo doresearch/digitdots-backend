@@ -9,14 +9,13 @@ export type User = {
   lname: string
   address: string
   invite_code: string
-  uid: string
 }
 
 interface UserState extends User {
   isLogin: boolean
 }
 
-const initData = {
+const initData: UserState = {
   isLogin: false,
   uid: '',
   account: '',

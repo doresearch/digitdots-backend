@@ -16,7 +16,7 @@ const teacherList = ref({ result: [] })
 async function getAllTeacherInfo() {
   const techerInfo = await getAllTeacher()
   teacherList.value = techerInfo.data
-  console.log(teacherList.value, techerInfo.data)
+  console.log(teacherList.value, techerInfo.data.result)
 }
 
 effect(() => {
