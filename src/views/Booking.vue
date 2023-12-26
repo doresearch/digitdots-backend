@@ -10,10 +10,10 @@
           alt=""
         />
       </div>
-      <div class="border flex-1 text-3xl p-4">
+      <div class="border flex-1 text-3xl p-4 cursor-pointer hover:text-info" @click="goTo(item)">
         <div>{{ item.fname }} {{ item.lname }}</div>
         <div class="border-t my-4"></div>
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap text-ellipsis">
           <div class="text-xl font-thin ml-2" v-for="citem in item.meeting" :key="citem.id">
             {{ dayjs(citem.order_time, 'x').format('YYYY-MM-DD HH:mm') }}
           </div>
@@ -26,6 +26,7 @@
 import { effect, ref } from 'vue'
 import dayjs from 'dayjs'
 import { getAllTeacher, searchClassByTeacherIds } from '@/api/teacher'
+import { useRouter } from 'vue-router'
 
 const teacherList = ref(0)
 
@@ -54,14 +55,17 @@ async function getTeacherInfo(teacher: any[]) {
       return { ...item, meeting: classCache[item.uid] }
     })
     .filter(item => item.meeting)
+}
 
-  console.log(
-    teacher
-      .map(item => {
-        return { ...item, meeting: classCache[item.uid] }
-      })
-      .filter(item => item.meeting)
-  )
+const router = useRouter()
+
+function goTo(teacher: any) {
+  router.push({
+    path: '/teacher-introduce',
+    query: {
+      id: teacher.uid,
+    },
+  })
 }
 
 effect(() => {
