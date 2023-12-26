@@ -50,7 +50,10 @@ service.interceptors.response.use(
   },
   error => {
     if (error.response && [401].includes(error.response.status)) {
-      callLogin()
+      // 获取用户信息接口除外
+      if (error.response.request.responseURL.indexOf('/api/user/info') === -1) {
+        callLogin()
+      }
       return Promise.reject('Login timeout, please log in again')
     }
 
