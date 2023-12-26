@@ -11,3 +11,7 @@ export const saveOrders = (params: { teacherId: string }) => {
 export const delMeeting = (params: { meetingId: string }) => {
   return request.post('/meeting/delete', params)
 }
+
+export const getAllTeacher = () => {
+  return request.post('/user/getAllTeacher')
+}

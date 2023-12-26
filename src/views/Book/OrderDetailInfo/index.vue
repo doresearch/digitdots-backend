@@ -46,7 +46,6 @@ async function getData() {
     meetingId: query.meetingId as string,
   })
 
-  console.log(res.data.result)
   meetingInfo.value = res.data.result
 }
 
