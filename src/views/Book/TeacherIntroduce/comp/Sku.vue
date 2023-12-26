@@ -20,6 +20,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { effect, ref } from 'vue'
 import dayjs from 'dayjs'
+import { OrderService } from '@/api'
+import { useUserStore } from '@/store/user'
 
 const { query } = useRoute()
 
@@ -47,13 +49,21 @@ const getSkuList = async () => {
 
 const router = useRouter()
 
-function preOrder(meetingId: string) {
-  router.push({
-    path: '/order-detail',
-    query: {
-      meetingId,
-    },
-  })
+const user = useUserStore()
+
+async function preOrder(meetingId: string) {
+  const { code, result } = await OrderService.preOrder<{ order_id: string }>({ meetingId, uid: user.uid })
+  if (code === 0) {
+    router.push({
+      path: '/order-detail',
+      query: {
+        meetingId,
+        orderId: result.order_id,
+      },
+    })
+    return
+  }
+  ElMessage.error('Error')
 }
 
 effect(() => {

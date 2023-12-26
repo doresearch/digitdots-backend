@@ -10,8 +10,11 @@ export const findByMeetingId = (params: { meetingId: string }) => {
 }
 abstract class OrderService {
   @CatchAPI()
-  public static async preOrder<T>(params: { meeting_id: string; uid: string }): Promise<IAjaxResponse<T>> {
-    const { data } = await request.post<T>('/order/createOrder', params)
+  public static async preOrder<T>(params: { meetingId: string; uid: string }): Promise<IAjaxResponse<T>> {
+    const { data } = await request.post<T>('/order/createOrder', {
+      meeting_id: params.meetingId,
+      uid: params.uid,
+    })
 
     return data
   }
