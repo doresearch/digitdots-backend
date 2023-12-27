@@ -14,7 +14,14 @@
     <div class="w-60 text-lg">
       <div class="flex" v-if="user.isLogin">
         <div class="border-rounded p-2"></div>
-        <div class="cursor-normal">{{ user.fname }}</div>
+        <div
+          class="cursor-normal cursor-pointer relative"
+          @mouseover="() => (isShowOrderList = true)"
+          @mouseleave="() => (isShowOrderList = false)"
+        >
+          {{ user.fname }}
+          <OrderList :isShow="isShowOrderList" />
+        </div>
         <div class="ml-2 mt-0.5 cursor-pointer" @click="logout">
           <el-icon><SwitchButton /></el-icon>
         </div>
@@ -31,9 +38,14 @@
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store/user'
 import { SwitchButton } from '@element-plus/icons-vue'
+import OrderList from './OrderList.vue'
+import { ref } from 'vue'
 
 const user = useUserStore()
 const router = useRouter()
+
+const isShowOrderList = ref(false)
+
 function logout() {
   localStorage.setItem('token', '')
   user.logout()

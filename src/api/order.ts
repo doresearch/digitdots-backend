@@ -28,14 +28,14 @@ abstract class OrderService {
 
   @CatchAPI()
   public static async getOrderDetail<T>(params: { order_id: string }): Promise<IAjaxResponse<T>> {
-    const { data } = await request.post<T>('/query/detail', params)
+    const { data } = await request.post<T>('/order/query/detail', params)
 
     return data
   }
 
   @CatchAPI()
   public static async getOrders<T>(): Promise<IAjaxResponse<T>> {
-    const { data } = await request.get<T>('/query/list')
+    const { data } = await request.get<T>('/order/query/list')
 
     return data
   }
