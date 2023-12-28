@@ -63,7 +63,6 @@ async function preOrder(meetingId: string) {
     })
     return
   }
-  ElMessage.error('Error')
 }
 
 effect(() => {

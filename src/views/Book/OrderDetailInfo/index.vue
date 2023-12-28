@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import Descript from '@/components/Descript.vue'
 import Price from '@/components/Price.vue'
-import { findByMeetingId } from '../../../api/order'
+import OrderService, { findByMeetingId } from '../../../api/order'
 import { useRoute } from 'vue-router'
 import { effect, ref } from 'vue'
 import dayjs from 'dayjs'
@@ -49,10 +49,23 @@ async function getData() {
   meetingInfo.value = res.data.result
 }
 
+const getOrderDetails = async () => {
+  const { code, result } = await OrderService.getOrderDetail({ order_id: query.orderId as string })
+  console.log(result)
+}
+
+// TODO: 购买.
+const buy = async () => {
+  const { code, result } = await OrderService.buy({ order_id: query.orderId as string })
+  console.log(result)
+}
+
 effect(() => {
   getData()
   setTimeout(() => {
     paypal.Buttons().render('#paypal-button-container')
   }, 100)
 })
+
+getOrderDetails()
 </script>

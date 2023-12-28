@@ -71,6 +71,7 @@ const onClickLogin = (formEl: FormInstance | undefined) => {
       user.getUserInfo()
       router.push('/')
     } else {
+      params.password = ''
       ElMessage.error(message)
     }
   })

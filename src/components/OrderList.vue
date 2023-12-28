@@ -15,13 +15,16 @@
 import { OrderService } from '@/api'
 import { ref, watch } from 'vue'
 import dayjs from 'dayjs'
+import { useUserStore } from '@/store/user'
 
 const props = defineProps<{ isShow: boolean }>()
+
+const user = useUserStore()
 
 const list = ref([])
 
 const getOrderList = async () => {
-  const { code, result } = await OrderService.getOrders<any>()
+  const { code, result } = await OrderService.getOrders<any>(user.uid)
   if (code === 0 && result?.length > 0) {
     list.value = result
   }
