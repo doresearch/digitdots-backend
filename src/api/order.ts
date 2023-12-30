@@ -34,8 +34,8 @@ abstract class OrderService {
   }
 
   @CatchAPI()
-  public static async getOrders<T>(uid: string): Promise<IAjaxResponse<T>> {
-    const { data } = await request.get<T>('/order/query/list', { uid })
+  public static async getOrders<T>(): Promise<IAjaxResponse<T>> {
+    const { data } = await request.get<T>('/order/query/list')
 
     return data
   }
