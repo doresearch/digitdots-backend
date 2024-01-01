@@ -68,7 +68,7 @@ effect(() => {
       .Buttons({
         createOrder() {
           return request
-            .bodyPost('/order/create-paypal-order', {
+            .bodyPost<any>('/order/create-paypal-order', {
               cart: [
                 {
                   sku: query.orderId,
@@ -76,7 +76,7 @@ effect(() => {
                 },
               ],
             })
-            .then(response => response.data)
+            .then(response => response.data.result.id)
         },
       })
       .render('#paypal-button-container')
