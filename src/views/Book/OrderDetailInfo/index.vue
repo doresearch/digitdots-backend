@@ -31,11 +31,12 @@
 <script setup lang="ts">
 import Descript from '@/components/Descript.vue'
 import Price from '@/components/Price.vue'
-import OrderService, { findByMeetingId } from '../../../api/order'
+import OrderService, { findByMeetingId } from '@/api/order'
 import { useRoute } from 'vue-router'
 import { effect, ref } from 'vue'
 import dayjs from 'dayjs'
 import paypal from 'paypal'
+import request from '@/axios/request'
 
 const { query } = useRoute()
 
@@ -63,7 +64,22 @@ const buy = async () => {
 effect(() => {
   getData()
   setTimeout(() => {
-    paypal.Buttons().render('#paypal-button-container')
+    paypal
+      .Buttons({
+        createOrder() {
+          return request
+            .bodyPost('/order/create-paypal-order', {
+              cart: [
+                {
+                  sku: query.orderId,
+                  quantity: 1,
+                },
+              ],
+            })
+            .then(response => response.data)
+        },
+      })
+      .render('#paypal-button-container')
   }, 100)
 })
 

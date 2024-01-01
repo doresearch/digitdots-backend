@@ -9,8 +9,8 @@ import federation from '@originjs/vite-plugin-federation'
 import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
 import { createHtmlPlugin } from 'vite-plugin-html'
 
-const clientID = 'Ac0OUgp3Bql521DY-3ycWeKV_k9EwgN5Ty4qsWoDrC-9HT3OaVakvYSD-IctpwVsA5fuOxxNekvtAfu7'
-const secret = 'ENkjwaBjAhZb_2f38Wl5fQAh3qILzqdwKo0aUDe4f_6PlGmodhgHD3xWK3Aty0ZOR4pjD-TUjogKSe0p'
+const clientID = 'AacPoJJKCU-fdJ_bBA6XDwIcmn97Zjs5NZB-zSEp8EG054nqQmi4ZtESgYcyekNHOG26RxHzRHvvffWD'
+const secret = 'ENn99T9RoqWG5Fkn5_VQdgYZoJkF05pg8jjsWwF-XTrX9VZJI7fO1a-klxXDLne8zXoKc2QrtqmGEgJR'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -27,7 +27,7 @@ export default defineConfig({
     federation({
       name: 'hostApp',
       remotes: {
-        remoteApp: 'http://localhost:8089/assets/remoteEntry.js',
+        // remoteApp: 'http://localhost:8089/assets/remoteEntry.js',
         // remoteApp: {
         //   external: `Promise.resolve('http://localhost:8089/assets/remoteEntry.js')`,
         //   externalType: 'promise',
