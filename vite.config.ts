@@ -48,7 +48,13 @@ export default defineConfig({
       inject: {
         data: {
           title: 'index',
-          injectScript: `<script src="https://www.paypal.com/sdk/js?client-id=${clientID}"></script>`,
+          injectScript: `
+            <script src="https://www.paypal.com/sdk/js?client-id=${clientID}"></script>
+            <script
+              type="text/javascript"
+              src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.18.0.min.js"
+            ></script>
+          `,
         },
         tags: [
           {

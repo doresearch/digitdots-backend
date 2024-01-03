@@ -6,6 +6,7 @@
         <el-radio label="2" size="large" border>Option B</el-radio>
       </el-radio-group>
     </div> -->
+    <Upload />
     <div class="flex flex-1 w-full">
       <el-form
         ref="infoFormRef"
@@ -75,6 +76,7 @@ import { FormInstance, ElMessage } from 'element-plus'
 import { registerUser } from '../../api'
 import md5 from 'md5'
 import { useRouter } from 'vue-router'
+import Upload from '@/components/Uploder.vue'
 
 const Step = ref(0)
 const AllStep = ['RoleInfo-Account', 'RoleInfo-Extend']
