@@ -6,8 +6,10 @@
     :on-success="handleAvatarSuccess"
     :before-upload="beforeAvatarUpload"
   >
-    <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-    <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+    <div class="h-44 w-44 border border-dashed text-center">
+      <img class="h-full w-full" v-if="imageUrl" :src="imageUrl" />
+      <el-icon v-else class="mt-19"><Plus /></el-icon>
+    </div>
   </el-upload>
 </template>
 <script lang="ts" setup>
@@ -19,6 +21,14 @@ import { Plus } from '@element-plus/icons-vue'
 import type { UploadProps } from 'element-plus'
 
 const imageUrl = ref('')
+
+const emit = defineEmits(['update:modelValue'])
+const props = defineProps({
+  modelValue: {
+    type: String,
+    default: '',
+  },
+})
 
 const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => {
   // imageUrl.value = URL.createObjectURL(uploadFile.raw!)
@@ -40,7 +50,6 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile: any) => {
 }
 
 async function handleUpload(file) {
-  console.log('file', file)
   const res = await getUploadToken({})
 
   const result: any = res.data.result
@@ -69,6 +78,7 @@ async function handleUpload(file) {
     }
     const result = await client.put(`for-yanhu-test/${file.file.name}`, file.file, options)
     imageUrl.value = result.url
+    emit('update:modelValue', result.url)
   } catch (e) {
     console.log('upload ===>', e)
   }

@@ -1,12 +1,11 @@
 <template>
-  <div class="mx-auto w-200 flex flex-col box-border">
+  <div class="mx-auto w-300 flex flex-col box-border">
     <!-- <div class="flex flex-1" v-if="AllStep[Step] === 'RoleChoose'">
       <el-radio-group v-model="info.role">
         <el-radio label="1" size="large" border>Option A</el-radio>
         <el-radio label="2" size="large" border>Option B</el-radio>
       </el-radio-group>
     </div> -->
-    <Upload />
     <div class="flex flex-1 w-full">
       <el-form
         ref="infoFormRef"
@@ -17,26 +16,35 @@
         :rules="rules"
       >
         <div v-if="AllStep[Step] === 'RoleInfo-Account'">
-          <el-form-item label="role" prop="role" required>
-            <el-radio-group v-model="info.role">
-              <el-radio label="2">Teacher</el-radio>
-              <el-radio label="3">Student</el-radio>
-            </el-radio-group>
-          </el-form-item>
-          <el-form-item label="Email Address" prop="account" required>
-            <el-input v-model="info.account" name="email" />
-          </el-form-item>
-          <!-- 过于简单提示 -->
-          <el-form-item label="PassWord" prop="password" required>
-            <el-input v-model="info.password" name="password" type="password" />
-          </el-form-item>
-          <!-- 不一致提示 -->
-          <el-form-item label="Confirm Password" prop="checkPass" required>
-            <el-input v-model="info.checkPass" name="password" type="password" />
-          </el-form-item>
-          <el-form-item label="You'll receive a 6-digit code, press it here" prop="inviteByCode">
-            <el-input v-model="info.inviteByCode" />
-          </el-form-item>
+          <div class="flex">
+            <div class="flex-1">
+              <el-form-item label="role" prop="role" required>
+                <el-radio-group v-model="info.role">
+                  <el-radio label="2">Teacher</el-radio>
+                  <el-radio label="3">Student</el-radio>
+                </el-radio-group>
+              </el-form-item>
+              <el-form-item label="Email Address" prop="account" required>
+                <el-input v-model="info.account" name="email" />
+              </el-form-item>
+              <!-- 过于简单提示 -->
+              <el-form-item label="PassWord" prop="password" required>
+                <el-input v-model="info.password" name="password" type="password" />
+              </el-form-item>
+            </div>
+            <div className="ml-6">
+              <Upload v-model="info.avatar" />
+            </div>
+          </div>
+          <div>
+            <!-- 不一致提示 -->
+            <el-form-item label="Confirm Password" prop="checkPass" required>
+              <el-input v-model="info.checkPass" name="password" type="password" />
+            </el-form-item>
+            <el-form-item label="You'll receive a 6-digit code, press it here" prop="inviteByCode">
+              <el-input v-model="info.inviteByCode" />
+            </el-form-item>
+          </div>
         </div>
         <div v-if="AllStep[Step] === 'RoleInfo-Extend'">
           <div class="text-3xl mb-10 bold text-center">Who you are?</div>
@@ -83,6 +91,7 @@ const AllStep = ['RoleInfo-Account', 'RoleInfo-Extend']
 
 const info = ref({
   role: '',
+  avatar: '',
   account: '',
   password: '',
   checkPass: '',
