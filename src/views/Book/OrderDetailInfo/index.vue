@@ -78,6 +78,15 @@ effect(() => {
             })
             .then(response => response.data.result.id)
         },
+        onApprove(data) {
+          // This function captures the funds from the transaction.
+          return request.bodyPost<any>('/order/capture', { orderID: data.orderID })
+          .then((response) => response.data.result)
+          .then((details) => {
+            // This function shows a transaction success message to your buyer.
+            alert('Transaction completed by ' + details.payer.name.given_name);
+          });
+        }
       })
       .render('#paypal-button-container')
   }, 100)
