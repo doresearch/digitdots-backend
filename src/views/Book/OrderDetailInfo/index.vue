@@ -87,6 +87,14 @@ effect(() => {
             alert('Transaction completed by ' + details.payer.name.given_name)
           })
         },
+        onCancel(data) {
+          // Show a cancel page, or return to cart
+          console.log('onCancel', data)
+        },
+        onError(err) {
+          // For example, redirect to a specific error page
+          console.log('onError', err)
+        },
       })
       .render('#paypal-button-container')
   }, 100)
