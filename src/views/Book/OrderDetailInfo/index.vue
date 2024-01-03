@@ -84,9 +84,9 @@ effect(() => {
           .then((response) => response.data.result)
           .then((details) => {
             // This function shows a transaction success message to your buyer.
-            alert('Transaction completed by ' + details.payer.name.given_name);
-          });
-        }
+            alert('Transaction completed by ' + details.payer.name.given_name)
+          })
+        },
       })
       .render('#paypal-button-container')
   }, 100)
