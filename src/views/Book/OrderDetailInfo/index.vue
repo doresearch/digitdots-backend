@@ -55,12 +55,6 @@ const getOrderDetails = async () => {
   console.log(result)
 }
 
-// TODO: 购买.
-const buy = async () => {
-  const { code, result } = await OrderService.buy({ order_id: query.orderId as string })
-  console.log(result)
-}
-
 effect(() => {
   getData()
   setTimeout(() => {
@@ -80,12 +74,13 @@ effect(() => {
         },
         onApprove(data) {
           // This function captures the funds from the transaction.
-          return request.bodyPost<any>('/order/capture', { orderID: data.orderID })
-          .then((response) => response.data.result)
-          .then((details) => {
-            // This function shows a transaction success message to your buyer.
-            alert('Transaction completed by ' + details.payer.name.given_name)
-          })
+          return request
+            .bodyPost<any>('/order/capture', { orderID: data.orderID })
+            .then(response => response.data.result)
+            .then(details => {
+              // This function shows a transaction success message to your buyer.
+              alert('Transaction completed by ' + details.payer.name.given_name)
+            })
         },
         onCancel(data) {
           // Show a cancel page, or return to cart
