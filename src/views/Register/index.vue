@@ -33,7 +33,9 @@
               </el-form-item>
             </div>
             <div className="ml-6">
-              <Upload v-model="info.avatar" />
+              <el-form-item prop="avator" label-width="0">
+                <Upload v-model="info.avator" />
+              </el-form-item>
             </div>
           </div>
           <div>
@@ -81,17 +83,18 @@
 <script lang="ts" setup name="Register">
 import { ref, computed } from 'vue'
 import { FormInstance, ElMessage } from 'element-plus'
-import { registerUser } from '../../api'
+import { UserService, registerUser } from '../../api'
 import md5 from 'md5'
 import { useRouter } from 'vue-router'
 import Upload from '@/components/Uploder.vue'
+import { useUserStore } from '@/store/user'
 
 const Step = ref(0)
 const AllStep = ['RoleInfo-Account', 'RoleInfo-Extend']
 
 const info = ref({
   role: '',
-  avatar: '',
+  avator: '',
   account: '',
   password: '',
   checkPass: '',
@@ -146,11 +149,13 @@ const rules = {
   password: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
   role: [{ required: true, message: 'Please select role', trigger: 'change' }],
+  avator: [{ required: true, message: 'Please upload avator', trigger: 'blur' }],
 }
 
 const labelPosition = computed(() => (Step.value === 0 ? 'left' : 'top'))
 
 const router = useRouter()
+const user = useUserStore()
 
 const NextStep = (formEl: FormInstance | undefined) => {
   if (!formEl) return
@@ -159,10 +164,25 @@ const NextStep = (formEl: FormInstance | undefined) => {
       if (Step.value + 1 > AllStep.length - 1) {
         const params = info.value
         params.password = md5(info.value.password + 'digitdots')
-        registerUser(params).then(res => {
+        registerUser(params).then(async res => {
           if (res.data?.code === 0) {
             ElMessage.success('register success')
-            router.push('/login')
+            // 注册成功之后自动登录
+            // router.push('/login')
+            const { code, result, message } = await UserService.authLogin<{ token: string }>(params)
+            if (code === 0) {
+              ElMessage.success('login success')
+              localStorage.setItem('token', 'Bearer ' + result.token || '')
+              user.getUserInfo()
+              if (info.value.role === '2') {
+                router.push('/setting/my-meeting')
+              } else {
+                router.push('/')
+              }
+            } else {
+              params.password = ''
+              ElMessage.error(message)
+            }
           } else {
             ElMessage.error(res.data?.message)
           }

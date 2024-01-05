@@ -37,7 +37,7 @@ export const useUserStore = defineStore('user', {
       }
     },
     async logout() {
-      this.$patch(...initData)
+      this.$patch({ ...initData, isLogin: false })
     },
   },
 })

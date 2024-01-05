@@ -9,6 +9,7 @@ const repeatMap = (times, step) => {
 const color = {
   info: '#7f7f8e',
   success: '#f0f9eb',
+  danger: '#f56c6c',
   'success-light': '#f0f9eb',
   'success-dark': '#67c23a',
 }

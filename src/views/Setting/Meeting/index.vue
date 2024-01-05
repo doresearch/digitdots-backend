@@ -30,7 +30,10 @@
         <div class="text-xl leading-1">
           <div class="mb-7">Available tutorial times</div>
           <div class="bg-success-light mb-2 w-100 flex justify-between px-4" v-for="item in orderedTimes" :key="item">
-            <div class="mt-2 text-success-dark">{{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}</div>
+            <div class="mt-2 text-success-dark">
+              {{ dayjs(item.orderTime).format('YYYY-MM-DD HH:mm:ss') }}
+              <span v-if="item.status === 1">(review)</span>
+            </div>
             <el-button
               class="!m-0 !p-0 !mb-1.5 !ml-2"
               :icon="Delete"
@@ -43,7 +46,7 @@
       </div>
     </div>
     <div class="flex justify-end mt-8">
-      <el-button type="success" :disabled="checkedOrders.length === 0" @click="submit">Make Sure</el-button>
+      <el-button type="success" :disabled="waitList.length === 0" @click="submit">Make Sure</el-button>
     </div>
   </div>
 </template>
@@ -54,6 +57,7 @@ import { Plus, Delete } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 import dayjs from 'dayjs'
 import { useUserStore } from '@/store/user'
+import { useRouter } from 'vue-router'
 
 const user = useUserStore()
 
@@ -88,10 +92,10 @@ function addToWaitList() {
     return
   }
   if (newTime.value) {
-    waitList.value.push({
-      // 转换成timeStamp
-      orderTime: dayjs(newTime.value).valueOf(),
-    })
+    const orderTime = dayjs(newTime.value).valueOf()
+    // 转换成timeStamp
+    waitList.value.push({ orderTime })
+    checkedOrders.value.push(orderTime)
   }
 }
 
@@ -100,7 +104,7 @@ function removeTime(constructor) {
     delMeeting({
       meetingId: constructor.meetingId,
     }).then(res => {
-      if (res.code) {
+      if (res.data.code === 0) {
         orderedTimes.value = orderedTimes.value.filter(item => item.meetingId !== constructor.meetingId)
         // Hi Hao, congratulation!
         ElMessage.success(
@@ -153,6 +157,7 @@ function getOrderInfo() {
       return {
         orderTime: Number(item.order_time),
         meetingId: item.meeting_id,
+        status: item.status,
       }
     })
 
@@ -162,9 +167,17 @@ function getOrderInfo() {
   })
 }
 
+const router = useRouter()
+
 effect(() => {
   if (user.uid) {
-    getOrderInfo()
+    if (user.role === 2) {
+      getOrderInfo()
+    } else {
+      router.push('/')
+    }
+  } else {
+    router.push('/login')
   }
 })
 </script>

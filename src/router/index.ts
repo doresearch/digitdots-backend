@@ -47,6 +47,12 @@ const routes = [
     name: 'setting',
     component: () => import('@/views/Setting/Meeting/index.vue'),
   },
+  // 审核中
+  {
+    path: '/setting/review',
+    name: 'review',
+    component: () => import('@/views/Setting/Review/index.vue'),
+  },
   // 老师介绍页面（后置）
   {
     path: '/teacher-introduce',

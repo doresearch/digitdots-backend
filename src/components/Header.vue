@@ -14,15 +14,26 @@
     <div class="w-60 text-lg">
       <div class="flex" v-if="user.isLogin">
         <div class="border-rounded p-2"></div>
-        <div
+        <!-- Todo: order list -->
+        <!-- <div
           class="cursor-normal cursor-pointer relative"
           @mouseover="() => (isShowOrderList = true)"
           @mouseleave="() => (isShowOrderList = false)"
         >
           {{ user.fname }}
           <OrderList :isShow="isShowOrderList" />
-        </div>
-        <div class="ml-2 mt-0.5 cursor-pointer" @click="logout">
+        </div> -->
+        <el-dropdown>
+          <span>{{ user.fname }}</span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <router-link to="/setting/my-metting" v-if="user.role === 2"
+                ><el-dropdown-item>order time</el-dropdown-item></router-link
+              >
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
+        <div class="ml-2 -mt-0.5 cursor-pointer hover:text-danger" @click="logout">
           <el-icon><SwitchButton /></el-icon>
         </div>
       </div>
@@ -45,7 +56,6 @@ const user = useUserStore()
 const router = useRouter()
 
 const isShowOrderList = ref(false)
-
 function logout() {
   localStorage.setItem('token', '')
   user.logout()
