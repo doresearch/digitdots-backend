@@ -67,6 +67,11 @@ const routes = [
     component: () => import('@/views/Book/OrderDetailInfo/index.vue'),
   },
   // 订单详情
+  {
+    path: '/my-order',
+    name: 'myOrder',
+    component: () => import('@/views/MyOrder.vue'),
+  },
   // 支付页面
 ]
 

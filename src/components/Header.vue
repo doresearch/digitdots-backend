@@ -30,6 +30,7 @@
               <router-link to="/setting/my-metting" v-if="user.role === 2"
                 ><el-dropdown-item>order time</el-dropdown-item></router-link
               >
+              <router-link to="/my-order"><el-dropdown-item>My Order</el-dropdown-item></router-link>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -46,16 +47,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store/user'
 import { SwitchButton } from '@element-plus/icons-vue'
-import OrderList from './OrderList.vue'
-import { ref } from 'vue'
 
 const user = useUserStore()
-const router = useRouter()
 
-const isShowOrderList = ref(false)
 function logout() {
   localStorage.setItem('token', '')
   user.logout()

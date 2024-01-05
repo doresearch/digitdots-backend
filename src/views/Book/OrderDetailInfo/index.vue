@@ -6,16 +6,16 @@
         class="font-bold text-2xl"
         label="teacher"
         label-class="w-30"
-        :content="`${meetingInfo.user_fname} ${meetingInfo.user_lname}`"
+        :content="`${orderDetail.meeting_teacher_fname} ${orderDetail.meeting_teacher_lname}`"
       />
       <Descript
         class="text-success-dark pt-4"
         label-class="w-30"
         label="time"
-        :content="dayjs(meetingInfo.order_time, 'x')"
+        :content="dayjs(orderDetail.meeting_time, 'x')"
       />
       <Descript class="font-bold text-success-dark pt-4" label-class="w-30" label="price">
-        <Price :price="meetingInfo.price" />
+        <Price :price="orderDetail.price" />
       </Descript>
       <Descript class="text-info pt-4" label-class="w-30 mt-1" label="discount">
         <el-input placeholder="" />
@@ -42,6 +42,18 @@ const { query } = useRoute()
 
 const meetingInfo = ref({})
 
+const orderDetail = ref({
+  meeting_id: '',
+  meeting_teacher_fname: '',
+  meeting_teacher_id: '',
+  meeting_teacher_lname: '',
+  meeting_time: '',
+  order_id: '',
+  order_status: 0,
+  order_time: '',
+  price: 0,
+})
+
 async function getData() {
   const res = await findByMeetingId({
     meetingId: query.meetingId as string,
@@ -51,8 +63,9 @@ async function getData() {
 }
 
 const getOrderDetails = async () => {
-  const { code, result } = await OrderService.getOrderDetail({ order_id: query.orderId as string })
+  const { code, result } = await OrderService.getOrderDetail<any>({ order_id: query.orderId as string })
   console.log(result)
+  orderDetail.value = result
 }
 
 effect(() => {

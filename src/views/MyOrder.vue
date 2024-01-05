@@ -1,23 +1,19 @@
 <template>
-  <div class="order-list absolute" v-show="props.isShow">
-    <div>
-      <div class="p-2" v-for="item in list" :key="item.order_id">
-        <div>Order number: {{ item.order_id }}</div>
-        <div>Price: {{ item.price }}</div>
-        <div>Meeting time: {{ dayjs(item.meeting_time, 'x').format('YYYY-MM-DD HH:mm:ss') }}</div>
-        <div>Meeting name: {{ item.fname }} {{ item.lname }}</div>
-      </div>
+  <div class="w-2/3 my-0 mx-auto">
+    <div class="p-2" v-for="item in list" :key="item.order_id">
+      <div>Order ID: {{ item.order_id }}</div>
+      <div>Price: {{ item.price }}</div>
+      <div>Meeting time: {{ dayjs(item.meeting_time, 'x').format('YYYY-MM-DD HH:mm:ss') }}</div>
+      <div>Meeting name: {{ item.meeting_teacher_fname }} {{ item.meeting_teacher_lname }}</div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { OrderService } from '@/api'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import dayjs from 'dayjs'
 import { useUserStore } from '@/store/user'
-
-const props = defineProps<{ isShow: boolean }>()
 
 const user = useUserStore()
 
@@ -30,14 +26,7 @@ const getOrderList = async () => {
   }
 }
 
-watch(
-  () => props.isShow,
-  () => {
-    if (props.isShow) {
-      getOrderList()
-    }
-  }
-)
+getOrderList()
 </script>
 
 <style lang="scss" scoped>
