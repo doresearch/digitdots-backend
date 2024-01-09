@@ -28,11 +28,11 @@ import dayjs from 'dayjs'
 import { getAllTeacher, searchClassByTeacherIds } from '@/api/teacher'
 import { useRouter } from 'vue-router'
 
-const teacherList = ref(0)
+const teacherList = ref([])
 
 async function getAllTeacherInfo() {
   const techerInfo = await getAllTeacher()
-  getTeacherInfo(techerInfo.data?.result)
+  getTeacherInfo(techerInfo.data?.result as any[])
 }
 
 // 通过老师id获取老师信息
@@ -40,7 +40,7 @@ async function getTeacherInfo(teacher: any[]) {
   const teacherIds = teacher.map(item => {
     return item.uid
   })
-  const info = await searchClassByTeacherIds({ teacherIds })
+  const info: any = await searchClassByTeacherIds({ teacherIds })
   const classCache = {}
   info.data?.result.map(item => {
     if (classCache[item.teacher_id]) {

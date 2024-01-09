@@ -35,7 +35,6 @@ import OrderService, { findByMeetingId } from '@/api/order'
 import { useRoute } from 'vue-router'
 import { effect, ref } from 'vue'
 import dayjs from 'dayjs'
-import paypal from 'paypal'
 import request from '@/axios/request'
 
 const { query } = useRoute()
@@ -71,7 +70,7 @@ const getOrderDetails = async () => {
 effect(() => {
   getData()
   setTimeout(() => {
-    paypal
+    window.paypal
       .Buttons({
         createOrder() {
           return request

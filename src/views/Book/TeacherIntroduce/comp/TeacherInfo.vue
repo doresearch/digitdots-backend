@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <div>
-      <img class="w-50 aspect-square" src="@/assets/teacher.png" alt="" />
+      <!-- <img class="w-50 aspect-square" src="@/assets/teacher.png" alt="" /> -->
     </div>
     <div class="ml-20">
       <div class="font-bold text-xl mb-2.5">Kristina Cranfeld</div>

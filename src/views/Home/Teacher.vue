@@ -18,11 +18,11 @@
 import { effect, ref } from 'vue'
 import { getAllTeacher } from '@/api/teacher'
 
-const teacherList = ref(0)
+const teacherList = ref([])
 
 async function getAllTeacherInfo() {
   const techerInfo = await getAllTeacher()
-  teacherList.value = techerInfo.data?.result
+  teacherList.value = techerInfo.data?.result as any
 }
 
 effect(() => {

@@ -24,7 +24,6 @@ const initData: UserState = {
   lname: '',
   address: '',
   invite_code: '',
-  uid: '',
 }
 
 export const useUserStore = defineStore('user', {

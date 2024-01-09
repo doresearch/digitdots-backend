@@ -1,9 +1,9 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { RouteRecordRaw, createRouter, createWebHashHistory } from 'vue-router'
 import Home from '@/views/Home.vue'
 import Register from '@/views/Register/index.vue'
 import Login from '@/views/Login.vue'
 
-const routes = [
+const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
@@ -48,11 +48,11 @@ const routes = [
     component: () => import('@/views/Setting/Meeting/index.vue'),
   },
   // 审核中
-  {
-    path: '/setting/review',
-    name: 'review',
-    component: () => import('@/views/Setting/Review/index.vue'),
-  },
+  // {
+  //   path: '/setting/review',
+  //   name: 'review',
+  //   component: () => import('@/views/Setting/Review/index.vue'),
+  // },
   // 老师介绍页面（后置）
   {
     path: '/teacher-introduce',

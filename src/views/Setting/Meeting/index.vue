@@ -152,7 +152,7 @@ function submit() {
 function getOrderInfo() {
   searchClassByTeacherId({
     teacherId: user.uid,
-  }).then(res => {
+  }).then((res: any) => {
     orderedTimes.value = res.data.result?.map?.(item => {
       return {
         orderTime: Number(item.order_time),
